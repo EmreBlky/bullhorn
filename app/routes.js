@@ -51,6 +51,7 @@ module.exports = function(app, passport) {
             userExt : userExt
         });
     });
+    
     app.post('/pin', isLoggedIn, function(req, res) {
         var imgUrls = [];
         var files   = [];
@@ -109,7 +110,8 @@ module.exports = function(app, passport) {
             share();
         });
     });
-
+    
+    // store file if passed image by url
     function checkFiles(req, res, next) {
         var imgUrl = req.body['image_url'];
 
@@ -128,11 +130,14 @@ module.exports = function(app, passport) {
             console.log('content-type:', res.headers['content-type']);
             console.log('content-length:', res.headers['content-length']);
 
+            // download image
             request(imgUrl).pipe(fs.createWriteStream(filePath)).on('close', function(err){
                 if (err) {
                     console.log("[ERROR] download product image error!");
                 }
-                req.body['new_file'] = {name: fileName, path: filePath, size:1};
+
+                // add file infor for uploading s3
+                req.body['new_file'] = {name: fileName, path: filePath, size: 1};
                 return next();
             });
         });
@@ -193,6 +198,7 @@ module.exports = function(app, passport) {
             return;
         }
 
+        // get post content from template
         function getContent(sns, data) {
             if (!sns) {
                 return null;
@@ -251,12 +257,14 @@ module.exports = function(app, passport) {
                         var type = 'update';
                         var params = {status: content};
                         
+                        // delete words if content over limitation of twitter
                         if (content.length > 140) {
                             var title = content.substring(content.indexOf('off!')+4, content.lastIndexOf('for ')).trim();
                             params.status = content.replace(title, title.substring(0, title.length-(content.length-145)) + ' ... ');
                             // params.status = content.substring(content.lastIndexOf(' for ')-140, content.length);
                         }
 
+                        // to do this if contains image
                         if (filePath) {
                             type = 'update_with_media';
                             params.media = new Array(filePath);
@@ -304,7 +312,6 @@ module.exports = function(app, passport) {
                                 }
                                 callback();
                                 console.log('[Renren] OK!');
-                                // consolg.log(JSON.stringify(body));
                             }
                         );
                         break;
