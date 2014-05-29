@@ -51,7 +51,7 @@ module.exports = function(app, passport) {
             userExt : userExt
         });
     });
-    
+
     app.post('/pin', isLoggedIn, function(req, res) {
         var imgUrls = [];
         var files   = [];
@@ -123,7 +123,12 @@ module.exports = function(app, passport) {
             return next();
         }
 
-        var fileName = Date.now() + imgUrl.substring(imgUrl.lastIndexOf('.'), imgUrl.length);
+        var fileType = '';
+        if (imgUrl.lastIndexOf('.') > imgUrl.lastIndexOf('/')) {
+            fileType = imgUrl.substring(imgUrl.lastIndexOf('.'), imgUrl.length);
+        }
+
+        var fileName = Date.now() + fileType;
         var filePath = './uploads/' + fileName;
 
         request.head(imgUrl, function(err, res, body){
@@ -254,7 +259,7 @@ module.exports = function(app, passport) {
                             callback       : configAuth.twitterAuth.callbackURL
                         });
 
-                        var type = 'update';
+                        var type   = 'update';
                         var params = {status: content};
                         
                         // delete words if content over limitation of twitter
