@@ -131,7 +131,14 @@ module.exports = function(app, passport) {
         var fileName = Date.now() + fileType;
         var filePath = './uploads/' + fileName;
 
-        request.head(imgUrl, function(err, res, body){
+        var options  = {
+                            url: imgUrl,
+                            headers: {
+                                'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'
+                            }
+                        };
+
+        request.head(options, function(err, res, body){
             console.log('content-type:', res.headers['content-type']);
             console.log('content-length:', res.headers['content-length']);
 
