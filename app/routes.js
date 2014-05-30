@@ -132,7 +132,7 @@ module.exports = function(app, passport) {
         var filePath = './uploads/' + fileName;
 
         var options  = {
-                            url: imgUrl,
+                            url    : imgUrl,
                             headers: {
                                 'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'
                             }
@@ -143,7 +143,7 @@ module.exports = function(app, passport) {
             console.log('content-length:', res.headers['content-length']);
 
             // download image
-            request(imgUrl).pipe(fs.createWriteStream(filePath)).on('close', function(err){
+            request(options).pipe(fs.createWriteStream(filePath)).on('close', function(err){
                 if (err) {
                     console.log("[ERROR] download product image error!");
                 }
