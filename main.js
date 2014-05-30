@@ -46,7 +46,7 @@ app.configure(function() {
 	// required for passport
     app.use(express.session({ secret: 'ilovescotchscotchyscotchscotch',  
                               cookie: { 
-                                        expires: new Date(Date.now() + 60 * 10000), 
+                                        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), 
                                         maxAge: 60*10000
                               } 
     })); // session secret
