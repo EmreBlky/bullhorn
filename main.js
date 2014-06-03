@@ -46,18 +46,12 @@ app.configure(function() {
 	// required for passport
     app.use(express.session({ secret: 'ilovescotchscotchyscotchscotchbullhorn',  
                               cookie: { 
-                                        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), 
-                                        maxAge: 60*10000
+                                        expires: new Date(Date.now() + 24*60*60*1000), 
+                                        maxAge: 24 * 60 * 60 * 1000
                               } 
     })); // session secret
 	app.use(passport.initialize());
-    app.use(passport.session({ 
-                               secret: 'ilovescotchscotchyscotchscotchbullhorn',
-                               cookie: { 
-                                        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), 
-                                        maxAge: 60*10000
-                               } 
-    })); // persistent login sessions
+    app.use(passport.session()); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
 });
 
