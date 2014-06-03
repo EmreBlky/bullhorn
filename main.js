@@ -51,7 +51,12 @@ app.configure(function() {
                               } 
     })); // session secret
 	app.use(passport.initialize());
-	app.use(passport.session()); // persistent login sessions
+    app.use(passport.session({ 
+                              cookie: { 
+                                        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), 
+                                        maxAge: 60*10000
+                              } 
+    })); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
 });
 
