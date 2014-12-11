@@ -110,14 +110,14 @@ module.exports = function(app, passport) {
             share();
         });
     });
-    
+
     // store file if passed image by url
     function checkFiles(req, res, next) {
         var imgUrl = req.body['image_url'];
 
         if (req.files.length > 0) {
             return next();
-        }        
+        }
 
         if (!imgUrl) {
             return next();
@@ -232,7 +232,7 @@ module.exports = function(app, passport) {
 
         function share() {
             data['product_image'] = imgUrls;
-            
+
             async.each(toSNS, function(sns, callback) {
                 var content = getContent(sns, data);
                 if (!content) {
@@ -268,7 +268,7 @@ module.exports = function(app, passport) {
 
                         var type   = 'update';
                         var params = {status: content};
-                        
+
                         // delete words if content over limitation of twitter
                         if (content.length > 140) {
                             var title = content.substring(content.indexOf('off!')+4, content.lastIndexOf('for ')).trim();
@@ -300,7 +300,7 @@ module.exports = function(app, passport) {
                                 console.log('[Twitter] OK!');
                             }
                         );
-                        
+
                         break;
                     case 'renren':
                         var title   = content.substring(content.indexOf('[title]')+7, content.indexOf('[content]'));
@@ -351,7 +351,7 @@ module.exports = function(app, passport) {
                         break;
                     case 'tumblr':
                         var tumblr = require('tumblr.js');
-                        
+
                         var title   = content.substring(content.indexOf('[title]')+7, content.indexOf('[content]'));
                         var body    = content.substring(content.indexOf('[content]')+9, content.indexOf('[tags]'));
                         var tags    = content.substring(content.indexOf('[tags]')+6, content.length);
@@ -362,12 +362,12 @@ module.exports = function(app, passport) {
                           token          : req.user.tumblr.token,
                           token_secret   : req.user.tumblr.tokenSecret
                         });
-                        
+
                         client.text(
-                            req.user.tumblr.username, 
-                            { 
+                            req.user.tumblr.username,
+                            {
                                 title: title, body: body, tags: tags
-                            }, 
+                            },
                             function (err, resp) {
                                 if (err) {
                                     callback({
@@ -378,7 +378,7 @@ module.exports = function(app, passport) {
                                 }
                                 callback();
                                 console.log('[Tumblr] OK!');
-                            });  
+                            });
                         break;
                     default:
                         callback({
@@ -511,7 +511,7 @@ module.exports = function(app, passport) {
             passport.authenticate('twitter', {
                 successRedirect : '/bullhorn',
                 failureRedirect : '/'
-            }));    
+            }));
 
     // tumblr --------------------------------
 
@@ -597,7 +597,7 @@ module.exports = function(app, passport) {
             passport.authorize('twitter', {
                 successRedirect : '/profile',
                 failureRedirect : '/'
-            }));    
+            }));
 
     // tumblr --------------------------------
 
