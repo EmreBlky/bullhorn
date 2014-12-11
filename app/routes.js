@@ -189,19 +189,19 @@ module.exports = function(app, passport) {
 
         var data = {};
 
-        data['product_name']      = req.body['product_name'].trim() || '';
-        data['model_number']      = req.body['model_number'].trim() || '';
-        data['current_price']     = req.body['current_price'].trim() || '';
-        data['seller']            = req.body['seller'].trim() || '';
-        data['pb_url']            = req.body['pb_url'].trim() || '';
-        data['image_url']         = req.body['image_url'].trim() || '';
-        data['dis_percentage']    = req.body['dis_percentage'].trim() || '';
-        data['dis_amount']        = req.body['dis_amount'].trim() || '';
-        data['lowest_price']      = req.body['lowest_price'] === 'on' ? 1 : 0;
+        data['product_name']      = req.body['product_name'].trim()      || '';
+        data['model_number']      = req.body['model_number'].trim()      || '';
+        data['current_price']     = req.body['current_price'].trim()     || '';
+        data['seller']            = req.body['seller'].trim()            || '';
+        data['pb_url']            = req.body['pb_url'].trim()            || '';
+        data['image_url']         = req.body['image_url'].trim()         || '';
+        data['dis_percentage']    = req.body['dis_percentage'].trim()    || '';
+        data['dis_amount']        = req.body['dis_amount'].trim()        || '';
+        data['lowest_price']      = req.body['lowest_price'] === 'on' ?  1 : 0;
         data['lowest_difference'] = req.body['lowest_difference'].trim() || '';
-        data['lowest_time']       = req.body['lowest_time'].trim() || '';
-        data['product_desc']      = req.body['product_desc'].trim() || '';
-        data['custom_tag']        = req.body['custom_tag'].trim() || '';
+        data['lowest_time']       = req.body['lowest_time'].trim()       || '';
+        data['product_desc']      = req.body['product_desc'].trim()      || '';
+        data['custom_tag']        = req.body['custom_tag'].trim()        || '';
 
         if (!data) {
             var error = 'Product information can not be empty';
