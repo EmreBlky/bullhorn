@@ -30,6 +30,6 @@
     "async": "~0.2.9",
     "redis": "*",
     "tumblr.js": "*0.0.4",
-    "form-data": "~0.1.2"
+    "form-data": "~0.2.0"
   }
 }
